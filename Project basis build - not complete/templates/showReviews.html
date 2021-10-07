@@ -1,0 +1,23 @@
+<!doctype html>
+ <html>
+   <body>
+     
+
+     <table border = 1>
+	<thead>
+	  <td>Username</td>
+	  <td>Review</td>
+	  <td>Overall Rating</td>
+	</thead>
+
+	{% for row in rows %}
+	  <tr>
+		<td>{{row["Username"]}}</td>
+		<td>{{row["Review"]}}</td>
+		<td>{{row["Rating"]}}</td>
+	 </tr>
+	{% endfor %}
+     </table>
+    <h2><a href = "/">Back to Home</a></h2>
+   </body>
+</html>

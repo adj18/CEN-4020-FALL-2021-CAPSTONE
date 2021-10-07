@@ -1,0 +1,28 @@
+<!doctype html>
+ <html>
+   <body>
+     <h3> All Ratings</h3>
+      <table border = 1>
+	  <thead>
+ 	    <td>Resturant</td>
+            <td>Food</td>
+            <td>Service</td>
+            <td>Ambience</td>
+            <td>Price</td>
+            <td>Rating</td>
+	  </thead>
+
+	{% for row in rows  %}
+	   <tr>
+		<td>{{row["Resturant"]}}</td> 
+                <td>{{row["Food"]}}</td>
+                <td>{{row["Service"]}}</td>
+                <td>{{row["Ambience"]}}</td>
+                <td>{{row["Price"]}}</td>
+                <td>{{row["Overall"]}}</td>
+	   </tr>
+	{% endfor  %}
+      </table>
+     <h2><a href = "/">Back to Home</a></h2>
+  </body>
+</html>
