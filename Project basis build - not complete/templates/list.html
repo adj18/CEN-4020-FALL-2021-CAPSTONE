@@ -1,25 +1,19 @@
 <!doctype html>
  <html>
    <body>
-     <h3> All Ratings</h3>
+     <h3><big>All Recipes</big></h3>
       <table border = 1>
 	  <thead>
- 	    <td>Resturant</td>
-            <td>Food</td>
-            <td>Service</td>
-            <td>Ambience</td>
-            <td>Price</td>
-            <td>Rating</td>
+ 	    <td>Recipe</td>
+            <td>Steps</td>
+            <td>Ingredients</td>
 	  </thead>
 
 	{% for row in rows  %}
 	   <tr>
-		<td>{{row["Resturant"]}}</td> 
-                <td>{{row["Food"]}}</td>
-                <td>{{row["Service"]}}</td>
-                <td>{{row["Ambience"]}}</td>
-                <td>{{row["Price"]}}</td>
-                <td>{{row["Overall"]}}</td>
+		<td>{{row["Recipe"]}}</td>
+                <td>{{row["Steps"]}}</td>
+                <td>{{row["Ingredients"]}}</td>
 	   </tr>
 	{% endfor  %}
       </table>
