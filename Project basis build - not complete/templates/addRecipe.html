@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+   <body>
+
+      <form action = "{{ url_for("addrec") }}" method = "POST">
+        <h3><big>Make a Recipe:</big></h3>
+  Recipe:<br/>
+        <input type = "text" name = "Recipe" /><br>
+        <br/>
+	Ingredients:<br/>
+        <!-- <input type = "text" name = "Ingredients" /><br> -->
+        <textarea name = "Ingredients" ></textarea><br>
+        <br/>
+	Steps:<br/>
+        <!-- <input type = "text" name = "Steps" /><br> -->
+        <textarea name = "Steps" ></textarea><br>
+        <br/>
+
+	<input type = "submit" value = "submit" /><br>
+
+	<h3><a href = "/">Back to Home</a></h3>
+
+       </form>
+    </body>
+</html>
