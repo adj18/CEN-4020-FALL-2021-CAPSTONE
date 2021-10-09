@@ -1,4 +1,4 @@
-#JRN18 Due 9/29  The program in this file is the individual work of Justin Nahorny
+
 from flask import Flask, render_template, request
 from datetime import datetime
 from pathlib import Path
