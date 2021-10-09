@@ -70,11 +70,11 @@ def addrec():
 			name = request.form['Recipe']
 			ingredients = request.form['Ingredients']
 			steps = request.form['Steps']
-			print ("id: ",id_assign,"name: ",name,"steps: ",steps,"ingredients: ",ingredients,"\n")
+			print ("id: ",1,"name: ",name,"steps: ",steps,"ingredients: ",ingredients,"\n")
 
 			with sql.connect("recipebase.db") as con:
 				cur = con.cursor()
-				cur.execute("INSERT INTO Recipe (RecipeID,Name,Steps,Ingredients) VALUES (?,?,?,?)", (id_assign,name, steps, ingredients))
+				cur.execute("INSERT INTO Recipe (RecipeID,Name,Steps,Ingredients) VALUES (?,?,?,?)", (1,name, steps, ingredients))
 				con.commit()
 				
 				msg = "Recipe Successfully added"
@@ -90,4 +90,4 @@ def addrec():
 
 if __name__ == '__main__':
    app.run(host='0.0.0.0');
-   id_assign=1
+
