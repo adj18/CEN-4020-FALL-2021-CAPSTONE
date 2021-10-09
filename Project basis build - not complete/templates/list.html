@@ -4,6 +4,7 @@
      <h3><big>All Recipes</big></h3>
       <table border = 1>
 	  <thead>
+
  	    <td>Recipe</td>
             <td>Steps</td>
             <td>Ingredients</td>
@@ -11,7 +12,8 @@
 
 	{% for row in rows  %}
 	   <tr>
-		<td>{{row["Recipe"]}}</td>
+
+                <td>{{row["Name"]}}</td>
                 <td>{{row["Steps"]}}</td>
                 <td>{{row["Ingredients"]}}</td>
 	   </tr>

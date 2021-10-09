@@ -1,4 +1,4 @@
-
+#JRN18 Due 9/29  The program in this file is the individual work of Justin Nahorny
 from flask import Flask, render_template, request
 from datetime import datetime
 from pathlib import Path
@@ -11,25 +11,25 @@ def index():
 	return render_template('index.html')
 
 @app.route('/enternew')
-def write_review():
+def write_recipe():
 	return render_template('addRecipe.html')
 	
 @app.route("/getRecipe")
-def getreview():
+def getrecipe():
 	return render_template('getRecipe.html')
 	
 @app.route('/getrec',methods = ['POST','GET'])
-def getrev():
+def getrec():
 	if request.method == 'POST':
 		try:
 			flag = 0
-			#resturant = request.form['resturant']
-			#print("\n\nrest =",rest,"\n\n")
+			name = request.form['Recipe']
+
 			with sql.connect("recipebase.db") as con:
 				con.row_factory = sql.Row
 				cur = con.cursor()
 			
-				#cur.execute('select Reviews.Username, Reviews.Review, Reviews.Rating from Reviews where Reviews.Resturant = ?',[rest])
+				cur.execute('SELECT Recipe.Name, Recipe.Ingredients,Recipe.Steps FROM Recipe where Recipe.Name = ? ',[name])
 				
 				
 				rows = cur.fetchall()
@@ -39,7 +39,7 @@ def getrev():
 			
 		finally:
 		    	if flag == 0:
-		    		#return render_template("showReviews.html",rows = rows)
+		    		return render_template("showRecipes.html",rows = rows)
 		    	else: 
 		    		return render_template("result.html",msg = msg)	
 		    	con.close()
@@ -55,7 +55,7 @@ def list():
 	con.row_factory = sql.Row
 	cur = con.cursor()
 	
-	#cur.execute("SELECT * FROM Ratings ORDER BY Resturant DESC")
+	cur.execute("SELECT * FROM recipe ORDER BY Name DESC ")
 	
 	rows = cur.fetchall()
 	return render_template("list.html",rows = rows)
@@ -63,28 +63,18 @@ def list():
 
 
 @app.route('/addrec',methods = ['POST','GET'])
-def addrev():
+def addrec():
 	if request.method == 'POST':
 		try:
-		
-			#nm = request.form['username']
-			#rest = request.form['resturant']
-			#fd = request.form['food']
-			#srvc = request.form['service']
-			#ambnc = request.form['ambience']
-			#pc = request.form['price']
-			#rvw = request.form['Review']
-			#ovrll = (float(fd)+float(srvc)+float(ambnc)+float(pc) )/ 4
-			#print("\n\nnm = ", nm, "rest =",rest,"fd =", fd,"srvc =",srvc, "ambnc =",ambnc,"pc =",pc,"rvw = ",rvw, "ovrll = ",ovrll,"\n\n")
-			#print (Path('reviewData.db').absolute())
-			#now = datetime.now()
-			#dt = now.strftime("%m-%d-%Y %H:%M:%S")
-			#print ("date = ",dt,"\n\n")
-			with sql.connect("reviewData.db") as con:
+
+			name = request.form['Recipe']
+			ingredients = request.form['Ingredients']
+			steps = request.form['Steps']
+			print ("id: ",id_assign,"name: ",name,"steps: ",steps,"ingredients: ",ingredients,"\n")
+
+			with sql.connect("recipebase.db") as con:
 				cur = con.cursor()
-				#cur.execute("INSERT INTO Reviews (Username,Resturant,ReviewTime,Rating,Review) VALUES (?,?,?,?,?)",(nm,rest,dt,ovrll,rvw))
-				#cur.execute("INSERT INTO Ratings (Resturant, Food, Service, Ambience, Price, Overall) VALUES (?, ?, ?, ?, ?, ?)",(rest,float(fd),float(srvc),float(ambnc),float(pc),ovrll))
-				
+				cur.execute("INSERT INTO Recipe (RecipeID,Name,Steps,Ingredients) VALUES (?,?,?,?)", (id_assign,name, steps, ingredients))
 				con.commit()
 				
 				msg = "Recipe Successfully added"
@@ -100,3 +90,4 @@ def addrev():
 
 if __name__ == '__main__':
    app.run(host='0.0.0.0');
+   id_assign=1
