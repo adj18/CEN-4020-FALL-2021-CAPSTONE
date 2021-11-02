@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+   <body>
+
+      <form action = "{{ url_for("addpant") }}" method = "POST">
+        <h3><big>Ingredient:</big></h3>
+  Name:<br/>
+        <input type = "text" name = "Name" /><br>
+        <br/>
+	Quantity:<br/>
+        <input type = "number" name = "Quantity" /><br>
+        <!-- <textarea name = "Quantity" ></textarea><br> -->
+        <br/>
+	Measurement:<br/>
+        <input type = "text" name = "Measurement" /><br>
+        <!-- <textarea name = "Measurement" ></textarea><br> -->
+        <br/>
+
+	<input type = "submit" value = "submit" /><br>
+
+	<h3><a href = "/">Back to Home</a></h3>
+
+       </form>
+    </body>
+</html>

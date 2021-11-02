@@ -1,0 +1,24 @@
+<!doctype html>
+ <html>
+   <body>
+     <h3><big>Pantry</big></h3>
+      <table border = 1>
+	  <thead>
+
+ 	    <td>Name</td>
+            <td>Quantity</td>
+            <td>Measurement</td>
+	  </thead>
+
+	{% for row in rows  %}
+	   <tr>
+
+                <td>{{row["Name"]}}</td>
+                <td>{{row["Quantity"]}}</td>
+                <td>{{row["Measurement"]}}</td>
+	   </tr>
+	{% endfor  %}
+      </table>
+     <h2><a href = "/">Back to Home</a></h2>
+  </body>
+</html>
