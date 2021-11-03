@@ -17,6 +17,14 @@ def write_recipe():
 @app.route("/getRecipe")
 def getrecipe():
 	return render_template('getRecipe.html')
+
+@app.route('/addpant')
+def addpant():
+	return render_template('addPantry.html')
+
+@app.route('/listpant')
+def listpant():
+	return render_template('listpant.html')
 	
 @app.route('/getrec',methods = ['POST','GET'])
 def getrec():
