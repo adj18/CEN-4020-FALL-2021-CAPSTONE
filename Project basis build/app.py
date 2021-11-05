@@ -23,9 +23,6 @@ def getrecipe():
 	return render_template('getRecipe.html')
 
 
-
-
-	
 @app.route('/getrec',methods = ['POST','GET'])
 def getrec():
 	if request.method == 'POST':
@@ -36,10 +33,8 @@ def getrec():
 			with sql.connect("recipebase.db") as con:
 				con.row_factory = sql.Row
 				cur = con.cursor()
-			
-				cur.execute('SELECT Recipe.Name, Recipe.Ingredients,Recipe.Steps FROM Recipe where Recipe.Name = ? ',[name])
-				
-				
+
+				cur.execute('SELECT Recipe.Name, Recipe.Ingredients,Recipe.Steps FROM Recipe where Recipe.Name = ? ',[name])				
 				rows = cur.fetchall()
 		except:
 			msg = "No results found"
@@ -53,6 +48,7 @@ def getrec():
 		    	con.close()
 	
 	
+
 
 @app.route('/listpant')
 def listpant():
@@ -72,33 +68,86 @@ def list():
 	con.row_factory = sql.Row
 	cur = con.cursor()
 	
-	cur.execute("SELECT * FROM Recipe ORDER BY Name DESC ")
-	
+	cur.execute("SELECT Recipe.Name FROM Recipe;")
+	#cur.execute("SELECT Name FROM Recipe ")
 	rows = cur.fetchall()
+	print(rows)
 	return render_template("list.html",rows = rows)
+
 
 
 
 @app.route('/addrec',methods = ['POST','GET'])
 def addrec():
+	flag = 0
 	if request.method == 'POST':
 		try:
-
+			
 			name = request.form['Recipe']
 			ingredients = request.form['Ingredients']
-			steps = request.form['Steps']
-			print ("id: ",1,"name: ",name,"steps: ",steps,"ingredients: ",ingredients,"\n")
+			steps = request.form['Steps']			
+
+		
 
 			with sql.connect("recipebase.db") as con:
+			
 				cur = con.cursor()
-				cur.execute("INSERT INTO Recipe (RecipeID,Name,Steps,Ingredients) VALUES (?,?,?,?)", (1,name, steps, ingredients))
-				con.commit()
-				
-				msg = "Recipe Successfully added"
-
+				#checking for existing recipe by the same name
+				cur.execute("Select Recipe.RecipeID from Recipe WHERE Recipe.Name = ?",[name])
+				match = cur.fetchall()
+				if not match:
+					#iterate the recipe ID
+					cur.execute("Select Recipe.RecipeID from Recipe ORDER BY Recipe.RecipeID DESC")
+					existing = cur.fetchall()
+					if not existing:
+						id = 1 		
+					else:
+						id = existing[0][0] +1
+					#handle steps here
+					current_step = ""
+					current_ingredient = ""
+					numofsteps = 0
+					numofingredients = 0
+					step_counter=0
+					ingredient_counter =0
+					for char in steps:
+						if char != '\n':
+							current_step += char 
+						else:
+							step_counter+=1
+							numofsteps +=1
+							cur.execute("INSERT INTO Steps (RecipeID,StepValue,Step) VALUES (?,?,?)",(id,step_counter,current_step))
+							print("inserted into steps")
+							current_step = ""
+						cur.execute("INSERT INTO Steps (RecipeID,StepValue,Step) VALUES (?,?,?)",(id,step_counter,current_step))
+							
+					for char in ingredients:
+						if char != '\n':
+							current_ingredient += char 
+						else:
+							ingredient_counter +=1
+							numofingredients +=1
+							cur.execute("INSERT INTO Ingredients (RecipeID,IngredientValue,Ingredient) VALUES (?,?,?)",(id,ingredient_counter,current_ingredient))
+							print("inserted into Ingredients")
+							current_ingredient = ""
+						cur.execute("INSERT INTO Ingredients (RecipeID,IngredientValue,Ingredient) VALUES (?,?,?)",(id,ingredient_counter,current_ingredient))
+					
+					cur.execute("INSERT INTO Recipe (RecipeID,Name,NumSteps,NumIngredients) VALUES (?,?,?,?)", (id,name, numofsteps, ingredients))
+					print("inserted into Recipe")
+					# cur.execute("INSERT INTO Steps (RecipeID,StepValue,Step,StepAmount) VALUES (?,?,?,?)", (1,name, numofsteps, steps,1))
+					con.commit()	
+					msg = "Recipe Successfully added"
+				else:
+					flag = -1
+					msg = "Recipe by the same name already exists"	
+				print(id)
+			
 		except:
 			con.rollback()
-			msg = "error in insert operations"
+			if flag == -1:
+				msg = "Recipe by the same name already exists"
+			else:
+				msg = "error in insert operations"
 			
 		finally:
 			return render_template("result.html",msg = msg)
@@ -129,6 +178,8 @@ def addpant():
 			return render_template('result.html',msg = msg)
 			con.close()
 	
+
+ 
 
 
 

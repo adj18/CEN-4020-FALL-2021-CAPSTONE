@@ -6,16 +6,10 @@
 	  <thead>
 
  	    <td>Recipe</td>
-            <td>Steps</td>
-            <td>Ingredients</td>
 	  </thead>
-
 	{% for row in rows  %}
 	   <tr>
-
                 <td>{{row["Name"]}}</td>
-                <td>{{row["Steps"]}}</td>
-                <td>{{row["Ingredients"]}}</td>
 	   </tr>
 	{% endfor  %}
       </table>
