@@ -1,0 +1,36 @@
+<!doctype html>
+ <html>
+   <body>
+    <h1><big>{{name}}</big></h1>
+    <table border = 1>
+	<thead>
+	  <td>Steps Number</td>
+      <td>Step</td>
+	</thead>
+
+	{% for steps in steps %}
+	  <tr>
+		<td>{{steps[0]}}</td>
+		<td>{{steps[1]}}</td>
+	 </tr>
+	{% endfor %}
+    <br></table>
+
+
+    <table border = 1>
+    <thead>
+        <td>Ingredient Number</td>
+        <td>Ingredient</td>
+      </thead>
+
+
+    {% for ingredients in ingredients %}
+    <tr>
+		<td>{{ingredients[0]}}</td>
+		<td>{{ingredients[1]}}</td>
+	 </tr>
+    {% endfor %}
+</table>
+    <h2><a href = "/">Back to Home</a></h2>
+   </body>
+</html>

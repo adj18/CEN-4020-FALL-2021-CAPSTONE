@@ -2,23 +2,16 @@
  <html>
    <body>
      <h3><big>All Recipes</big></h3>
-      <table border = 1>
-	  <thead>
-
- 	    <td>Recipe</td>
-            <td>Steps</td>
-            <td>Ingredients</td>
-	  </thead>
-
 	{% for row in rows  %}
+  <div>
+  <form action = "{{ url_for("selectRecipe") }}" method = "POST">
 	   <tr>
+               <h1><button type="submit" name = "Name" value = "{{row["Name"]}}"  >{{row["Name"]}}</button></h1> 
 
-                <td>{{row["Name"]}}</td>
-                <td>{{row["Steps"]}}</td>
-                <td>{{row["Ingredients"]}}</td>
-	   </tr>
+     </tr>
+    </form>
+    </div>
 	{% endfor  %}
-      </table>
      <h2><a href = "/">Back to Home</a></h2>
   </body>
 </html>
