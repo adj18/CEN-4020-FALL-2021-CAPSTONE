@@ -197,6 +197,7 @@ def addrec():
 
 @app.route('/addpant',methods = ['POST','GET'])
 def addpant():
+	flag = 0
 	print("attempting to add ingredient")
 	if request.method == 'POST':
 		try:
@@ -207,14 +208,26 @@ def addpant():
 
 			with sql.connect("recipebase.db") as con:
 				cur = con.cursor()
-				cur.execute("INSERT INTO Pantry (UserID,Name,Quantity,Measurement) VALUES (?,?,?,?)", (1,Name, Quantity, Measurement))
-				con.commit()
+				#Check if pantry element already exists
+				cur.execute("Select Pantry.Name from Pantry WHERE Pantry.Name = ?",[Name])
+				match = cur.fetchall()
+				if not match:
+					cur.execute("INSERT INTO Pantry (UserID,Name,Quantity,Measurement) VALUES (?,?,?,?)", (1,Name, Quantity, Measurement))
+					con.commit()
 				
-				msg = "Ingredient Successfully added to Pantry"
+					msg = "Ingredient Successfully added to Pantry"
+				else:
+					print("Name select statement: ",match)
+					flag = -1
+					msg = "Pantry item already exists within database"	
+				print(Name)
 
 		except:
 			con.rollback()
-			msg = "error in insert operations"
+			if flag == -1:
+				msg = "Pantry item already exists"
+			else:
+				msg = "error in insert operations"
 
 		finally:
 			return render_template('result.html',msg = msg)
