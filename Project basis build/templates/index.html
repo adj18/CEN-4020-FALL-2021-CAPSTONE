@@ -1,24 +1,198 @@
-<!doctype html>
-<html>
-  <head>
-    <style>
-    h1 {text-align: Center}
-    </style>
-  </head>
-   <body>
-     <h1><big>Welcome to the RecipeBuilder Application</big></h1>
-     <hr/>
-      <ul>
-        <li><h2><a href = "/getRecipe">Locate a Recipe</a></h2></li>
-        <br/>
-        <li><h2><a href = "/addRecipe">Add a Recipe</a></h2></li>
-        <br/>
-        <li><h2><a href = "/addToPantry">Add Ingredient to Pantry</a></h2></li>
-        <br/>
-        <li><h2><a href = "/list">List all Recipes</a></h2></li>
-        <br/>
-        <li><h2><a href = "/listpant">List Pantry</a></h2></li>
-        <br/>
-      </ul>
-   </body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Recipie Builder</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap Icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
+        <!-- SimpleLightbox plugin CSS-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="main.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">RecipeBuilder</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#Features">Features</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#portfolio">Our Favorites</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Meet The Team</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class="text-white font-weight-bold">Welcome to your one stop Recipie Application</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <p class="text-white-75 mb-5">RecipieBuilder is here to make finding and creating recipies simple and easy</p>
+                        <a class="btn btn-primary btn-xl" href="#about">Find Out More</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- About-->
+        <section class="page-section bg-primary" id="about">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-white mt-0">We've got what you need!</h2>
+                        <hr class="divider divider-light" />
+                        <p class="text-white-75 mb-4">RecipieBuilder is here to make finding recipies quick and easy</p>
+                        <a class="btn btn-light btn-xl" href="#Features">Get Started!</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Features-->
+        <section class="page-section" id="Features">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">RecipeBuilder Features</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-search fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2" ><a href = "/getRecipe">Locate a Recipie in Our Database</a></h3>
+                            <p class="text-muted mb-0">Our themes are updated regularly to keep them bug free!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-plus-lg fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2"><a href = "/addRecipe">Add a Recipie To Our Database</a></h3>
+                            <p class="text-muted mb-0">All dependencies are kept current to keep things fresh.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-plus-square fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2"><a href = "/addToPantry">Add Ingredients to the Pantry</a></h3>
+                            <p class="text-muted mb-0">You can use this design as is, or you can make changes!</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-clipboard-data fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2"><a href = "/list">List All Recipies Currently in our database</a></h3>
+                            <p class="text-muted mb-0">Is it really open source if it's not made with love?</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="mt-5">
+                            <div class="mb-2"><i class="bi-clipboard-data fs-1 text-primary"></i></div>
+                            <h3 class="h4 mb-2"><a href = "/listpant">List All Ingredients In Pantry</a></h3>
+                            <p class="text-muted mb-0">Is it really open source if it's not made with love?</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio-->
+        <div id="portfolio">
+            <div class="container-fluid p-0">
+                <div class="row g-0">
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="Pictures\burger.jpg" title="Tofu Burgers">
+                            <img class="img-fluid" src="Pictures\burger.jpg" alt="Tofu Burgers" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Lunch/Dinner</div>
+                                <div class="project-name">Tofu Burger</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="Pictures\chicken-alfredo.jpg" title="Chicken Alfredo">
+                            <img class="img-fluid" src="Pictures\chicken-alfredo.jpg" alt="Chicken Alfredo" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Dinner</div>
+                                <div class="project-name">Chicken Alfredo</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="Pictures\chicken-parm.jpg" title="chicken parmesan">
+                            <img class="img-fluid" src="Pictures\chicken-parm.jpg" alt="chicken parmesan" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Dinner</div>
+                                <div class="project-name">Chicken Parmesan</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="Pictures\pancakes.jpg" title="Pancakes">
+                            <img class="img-fluid" src="Pictures\pancakes.jpg" alt="Pancakes" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Breakfast</div>
+                                <div class="project-name">Pancakes</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="Pictures\scalloped.jpg" title="Scalloped Potatoes">
+                            <img class="img-fluid" src="Pictures\scalloped.jpg" alt="Scalloped Potatoes" />
+                            <div class="portfolio-box-caption">
+                                <div class="project-category text-white-50">Dinner</div>
+                                <div class="project-name">Scalloped Potatoes</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a class="portfolio-box" href="Pictures\chickenSoup.jpg" title="Chicken Soup">
+                            <img class="img-fluid" src="Pictures\chickenSoup.jpg" alt="Chicken Soup" />
+                            <div class="portfolio-box-caption p-3">
+                                <div class="project-category text-white-50">Dinner</div>
+                                <div class="project-name">Chicken Noodle Soup</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact-->
+        
+        <section class="page-section" id="contact">
+            
+      
+        </section>
+
+
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2021 - RecipeBuilder</div></div>
+            <div class="container px-4 px-lg-5"><div class="small text-center text-muted"><a href = "https://github.com/adj18/CEN-4020-FALL-2021-CAPSTONE" target="_blank"><i class="bi bi-github"></i></a></div></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
 </html>
