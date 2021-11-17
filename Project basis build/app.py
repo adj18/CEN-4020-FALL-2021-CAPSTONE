@@ -59,27 +59,38 @@ def getrec():
 			name = request.form['Recipe']
 
 			with sql.connect("recipebase.db") as con:
+				con.row_factory = sql.Row
 				cur = con.cursor()
-				cur.execute("Select Recipe.RecipeID from Recipe WHERE Recipe.Name = ?",[name])	
-				res = cur.fetchone()	
-				id = res[0]
-				print("RecipeID: ",id)
+				cur.execute("SELECT Recipe.Name FROM Recipe WHERE Recipe.Name like ?",["%"+name+"%",])
+				rows = cur.fetchall()	
+				print(rows)
+				
+				
 
-				cur.execute("Select  StepValue, Step from Steps WHERE  Steps.RecipeID = ?",[id])	
-				steps = cur.fetchall()
-				print("Steps: ",steps)
-				cur.execute("Select  IngredientValue, Ingredient from Ingredients WHERE  Ingredients.RecipeID = ?",[id])
-				ingredients = cur.fetchall()
-				print("ingredients: ",ingredients)		
 		except:
 			msg = "No results found"
 			flag = 1
 		finally:
 			if not flag:
 				msg = "found a result"
-			return render_template('RecipeDetails.html',name = name,steps = steps,ingredients = ingredients)
+				return render_template("list.html",rows = rows,title = 'Matching Results')
+			else: 
+				return render_template("result.html",msg = msg)
+			
 	
-	
+# @app.route('/search',methods = ['POST','GET'])
+# def search():
+# 	if request.method == 'POST':
+# 		try:
+# 			flag = 0
+# 			name = request.form['Recipe'] 
+# 			with sql.connect("recipebase.db") as con:
+# 				cur = con.cursor()
+# 				cur.execute("Select Recipe.RecipeID from Recipe WHERE Recipe.Name like %?%",[name])	
+
+
+
+# 	return render_template('')	
 
 
 @app.route('/listpant')
@@ -105,10 +116,8 @@ def list():
 	cur.execute("SELECT Recipe.Name FROM Recipe;")
 	#cur.execute("SELECT Name FROM Recipe ")
 	rows = cur.fetchall()
-
-	
 	print(rows)
-	return render_template("list.html",rows = rows)
+	return render_template("list.html",rows = rows,title = 'Everything We\'ve Got')
 
 
 

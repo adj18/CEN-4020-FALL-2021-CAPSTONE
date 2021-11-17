@@ -1,9 +1,8 @@
 <!doctype html>
  <html>
    <body>
-    <h3><big>{{title}}</big></h3>
+     <h3><big>All Recipes</big></h3>
 	{% for row in rows  %}
-  
   <div>
   <form action = "{{ url_for("selectRecipe") }}" method = "POST">
 	   <tr>
