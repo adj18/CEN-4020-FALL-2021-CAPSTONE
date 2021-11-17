@@ -16,7 +16,8 @@
         <!-- SimpleLightbox plugin CSS-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="main.css" rel="stylesheet" />
+       <!-- Navigation <link href="main.css" rel="stylesheet" /> -->
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}">
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -113,8 +114,8 @@
             <div class="container-fluid p-0">
                 <div class="row g-0">
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="Pictures\burger.jpg" title="Tofu Burgers">
-                            <img class="img-fluid" src="Pictures\burger.jpg" alt="Tofu Burgers" />
+                        <a class="portfolio-box" href="{{ url_for('static',filename='Pictures/burger.jpg') }}" title="Tofu Burgers">
+                            <img class="img-fluid" src="{{ url_for('static',filename='Pictures/burger.jpg') }}" alt="Tofu Burgers" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Lunch/Dinner</div>
                                 <div class="project-name">Tofu Burger</div>
@@ -122,8 +123,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="Pictures\chicken-alfredo.jpg" title="Chicken Alfredo">
-                            <img class="img-fluid" src="Pictures\chicken-alfredo.jpg" alt="Chicken Alfredo" />
+                        <a class="portfolio-box" href="{{ url_for('static',filename='Pictures/chicken-alfredo.jpg') }}" title="Chicken Alfredo">
+                            <img class="img-fluid" src="{{ url_for('static',filename='Pictures/chicken-alfredo.jpg') }}" alt="Chicken Alfredo" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Dinner</div>
                                 <div class="project-name">Chicken Alfredo</div>
@@ -131,8 +132,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="Pictures\chicken-parm.jpg" title="chicken parmesan">
-                            <img class="img-fluid" src="Pictures\chicken-parm.jpg" alt="chicken parmesan" />
+                        <a class="portfolio-box" href="{{ url_for('static',filename='Pictures/chicken-parm.jpg') }}" title="chicken parmesan">
+                            <img class="img-fluid" src="{{ url_for('static',filename='Pictures/chicken-parm.jpg') }}" alt="chicken parmesan" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Dinner</div>
                                 <div class="project-name">Chicken Parmesan</div>
@@ -140,8 +141,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="Pictures\pancakes.jpg" title="Pancakes">
-                            <img class="img-fluid" src="Pictures\pancakes.jpg" alt="Pancakes" />
+                        <a class="portfolio-box" href="{{ url_for('static',filename='Pictures/pancakes.jpg') }}" title="Pancakes">
+                            <img class="img-fluid" src="{{ url_for('static',filename='Pictures/pancakes.jpg') }}" alt="Pancakes" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Breakfast</div>
                                 <div class="project-name">Pancakes</div>
@@ -149,8 +150,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="Pictures\scalloped.jpg" title="Scalloped Potatoes">
-                            <img class="img-fluid" src="Pictures\scalloped.jpg" alt="Scalloped Potatoes" />
+                        <a class="portfolio-box" href="{{ url_for('static',filename='Pictures/scalloped.jpg') }}" title="Scalloped Potatoes">
+                            <img class="img-fluid" src="{{ url_for('static',filename='Pictures/scalloped.jpg') }}" alt="Scalloped Potatoes" />
                             <div class="portfolio-box-caption">
                                 <div class="project-category text-white-50">Dinner</div>
                                 <div class="project-name">Scalloped Potatoes</div>
@@ -158,8 +159,8 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="Pictures\chickenSoup.jpg" title="Chicken Soup">
-                            <img class="img-fluid" src="Pictures\chickenSoup.jpg" alt="Chicken Soup" />
+                        <a class="portfolio-box" href="{{ url_for('static',filename='Pictures/chickenSoup.jpg') }}" title="Chicken Soup">
+                            <img class="img-fluid" src="{{ url_for('static',filename='Pictures/chickenSoup.jpg') }}" alt="Chicken Soup" />
                             <div class="portfolio-box-caption p-3">
                                 <div class="project-category text-white-50">Dinner</div>
                                 <div class="project-name">Chicken Noodle Soup</div>
@@ -188,7 +189,7 @@
         <!-- SimpleLightbox plugin JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="{{ url_for('static',filename='js/scripts.js') }}"></script>
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <!-- * *                               SB Forms JS                               * *-->
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
