@@ -64,8 +64,6 @@ def getrec():
 				cur.execute("SELECT Recipe.Name FROM Recipe WHERE Recipe.Name like ?",["%"+name+"%",])
 				rows = cur.fetchall()	
 				print(rows)
-				
-				
 
 		except:
 			msg = "No results found"
