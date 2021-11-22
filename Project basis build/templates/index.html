@@ -31,6 +31,14 @@
                         <li class="nav-item"><a class="nav-link" href="#Features">Features</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Our Favorites</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Meet The Team</a></li>
+                        <form class="navbar-form" action = "{{url_for("getrec") }}"  method = "POST">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search Recipes By Name" name="Recipe">
+                                  <div class="input-group-btn">
+                                    <button class=" align btn btn-default text-white" type="submit"><i class="bi bi-search"></i></button>
+                                  </div>
+                              </div>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -98,8 +106,6 @@
                             <p class="text-muted mb-0">Is it really open source if it's not made with love?</p>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </section>

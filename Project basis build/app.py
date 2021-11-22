@@ -207,13 +207,14 @@ def addpant():
 	flag = 0
 	print("attempting to add ingredient")
 	if request.method == 'POST':
-		try:
-			Name = request.form['Name']
-			Quantity = request.form['Quantity']
-			Measurement = request.form['Measurement']
-			print ("UserID: ",1,"Name: ",Name,"Quantity: ",Quantity,"Measurement: ",Measurement,"\n")
+		with sql.connect("recipebase.db") as con:
+			try:
+				Name = request.form['Name']
+				Quantity = request.form['Quantity']
+				Measurement = request.form['Measurement']
+				print ("UserID: ",1,"Name: ",Name,"Quantity: ",Quantity,"Measurement: ",Measurement,"\n")
 
-			with sql.connect("recipebase.db") as con:
+				
 				cur = con.cursor()
 				#Check if pantry element already exists
 				cur.execute("Select Pantry.Name from Pantry WHERE Pantry.Name = ?",[Name])
@@ -229,16 +230,16 @@ def addpant():
 					msg = "Pantry item already exists within database"	
 				print(Name)
 
-		except:
-			con.rollback()
-			if flag == -1:
-				msg = "Pantry item already exists"
-			else:
-				msg = "error in insert operations"
+			except:
+				con.rollback()
+				if flag == -1:
+					msg = "Pantry item already exists"
+				else:
+					msg = "error in insert operations"
 
-		finally:
-			return render_template('result.html',msg = msg)
-			con.close()
+			finally:
+				return render_template('result.html',msg = msg)
+				con.close()
 	
 
  

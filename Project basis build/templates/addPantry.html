@@ -46,19 +46,34 @@
               <div class="col-lg-8 text-center">
                   <h2 class="text-white mt-0">Add to your Pantry</h2>
                   <hr class="divider divider-light" />
-                  <div class="text-white row gx-4 gx-lg-5 justify-content-center">
-                        Name of Ingredient  
-                </div>
-                  <input class="text-white mt-0" type = "text" name = "Ingredient" /><br>
-                  <label>Quantity:</label><br><input class="text-white mt-0" type = "number" name = "Quantity" /> <br>
-                  <label for="Measurement">Measurement Type:</label>
-                    <select id="Measurement" name="Measurement">
-                        <option value="Whole">Whole</option>
-                        <option value="Quart">Quart</option>
-                        <option value="Pint">Pint</option>
-                        <option value="Cup">Cup</option>
-                     </select>
-                    <br/> 
+                <form action = "{{ url_for("addpant") }}" method = "POST">
+                    
+                    
+                    <div class="text-white row gx-4  justify-content-center">
+                        <div class = "col-lg-4">
+                            <small class = "text-white form-text">Ingredient Name </small>
+                            <input class="form-control" type = "text" placeholder="Ingredient Name" name = "Ingredient" /><br>
+                        </div> 
+                        <div class = "col-lg-4">
+                            <small class = "text-white form-text">Quantity </small>
+                            <input class="form-control" type = "number" placeholder="Quantity" name = "Quantity" />
+                        </div> 
+                        <div class = "col-lg-4">
+                            <small class = "text-white form-text">Measurement Type </small>
+                            <select class = "form-select" aria-label="" id="Measurement" name="Measurement">
+                                <option value="Whole">Whole</option>
+                                <option value="Quart">Quart</option>
+                                <option value="Pint">Pint</option>
+                                <option value="Cup">Cup</option>
+                             </select>
+                        </div> 
+                    </div> 
+                    <div class="text-white row gx-4  justify-content-center">
+                        <div class="input-group-btn">
+                            <button class="align btn btn-default text-white form-control" type="submit">Add To Pantry</button>
+                        </div>
+                    </div>  
+                </form>
               </div>
           </div>
       </div>
