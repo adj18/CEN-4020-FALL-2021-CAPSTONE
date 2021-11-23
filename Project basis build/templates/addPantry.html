@@ -47,8 +47,6 @@
                   <h2 class="text-white mt-0">Add to your Pantry</h2>
                   <hr class="divider divider-light" />
                 <form action = "{{ url_for("addpant") }}" method = "POST">
-                    
-                    
                     <div class="text-white row gx-4  justify-content-center">
                         <div class = "col-lg-4">
                             <small class = "text-white form-text">Ingredient Name </small>
@@ -74,14 +72,57 @@
                         </div>
                     </div>  
                 </form>
+                {{ msg }}
               </div>
           </div>
       </div>
   </section>
-        <section id = "details">
-               
-  
-        </section>
+  <section class="page-section" id="List">
+    <div class="container px-4 px-lg-5">
+        <h2 class="text-center mt-0">Your Pantry</h2>
+        <hr class="divider" />
+        <div class="row gx-4 gx-lg-5">
+            <div class="col-lg-4 col-md-4 text-center">
+                <div class="mt-5">
+                    <!-- <div class="mb-2"><i class="bi-plus-lg fs-1 text-primary"></i></div> -->
+                    <b>Ingredient</b>          
+                        {% for row in rows  %}
+                        <br>
+                        <tr>
+                            <td>{{row["Name"]}}</td>
+                        </tr> 
+                        {% endfor  %}
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <div class="mt-5">
+                    <!-- <div class="mb-2"><i class="bi-plus-square fs-1 text-primary"></i></div> -->
+                    <b>Quantity</b>
+                        {% for row in rows  %}
+                        <br>
+                        <tr>
+                            <td>{{row["Quantity"]}}</td>
+                        </tr> 
+                        {% endfor  %} 
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 text-center">
+                <div class="mt-5">
+                    <!-- <div class="mb-2"><i class="bi-clipboard-data fs-1 text-primary"></i></div> -->
+                  <b>Measurement</b> 
+
+                    {% for row in rows  %}
+                    <br>
+                    <tr>
+                        <td>{{row["Measurement"]}}</td>
+                    </tr> 
+                    {% endfor  %}
+                </div>
+            </div>
+        </div>
+      
+    </div>
+</section>
 
        <footer class="bg-light py-5">
         <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2021 - RecipeBuilder</div></div>

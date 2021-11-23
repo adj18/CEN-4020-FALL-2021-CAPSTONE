@@ -16,7 +16,8 @@ def write_recipe():
 
 @app.route('/addToPantry')
 def write_Pantry():
-	return render_template('addPantry.html')
+	rows = getpant()
+	return render_template('addPantry.html',rows = rows, msg = "")
 	
 @app.route("/getRecipe")
 def getrecipe():
@@ -34,14 +35,11 @@ def selectRecipe():
 				cur.execute("Select Recipe.RecipeID from Recipe WHERE Recipe.Name = ?",[name])	
 				res = cur.fetchone()	
 				id = res[0]
-				print("RecipeID: ",id)
 
 				cur.execute("Select  StepValue, Step from Steps WHERE  Steps.RecipeID = ?",[id])	
 				steps = cur.fetchall()
-				print("Steps: ",steps)
 				cur.execute("Select  IngredientValue, Ingredient from Ingredients WHERE  Ingredients.RecipeID = ?",[id])
 				ingredients = cur.fetchall()
-				print("ingredients: ",ingredients)		
 		except:
 			msg = "No results found"
 			flag = 1
@@ -105,6 +103,26 @@ def listpant():
 	return render_template('listpant.html', rows = rows)
 
 
+
+def getpant():
+	con = sql.connect("recipebase.db")
+	con.row_factory = sql.Row		
+	cur = con.cursor()
+
+	cur.execute("SELECT Pantry.Name, Pantry.Quantity, Pantry.Measurement FROM Pantry ORDER BY Pantry.Name DESC ")
+
+	rows = cur.fetchall()
+	
+
+	return rows
+
+
+
+
+
+
+
+
 @app.route('/list')
 def list():
 	con = sql.connect("recipebase.db")
@@ -130,7 +148,9 @@ def addrec():
 			ingredients = request.form['Ingredients']
 			steps = request.form['Steps']			
 
-		
+			print(name)
+			print(steps)
+			print(ingredients)
 
 			with sql.connect("recipebase.db") as con:
 			
@@ -205,15 +225,21 @@ def addrec():
 @app.route('/addpant',methods = ['POST','GET'])
 def addpant():
 	flag = 0
+	msg = ""
 	print("attempting to add ingredient")
 	if request.method == 'POST':
+
+
+
 		with sql.connect("recipebase.db") as con:
-			try:
-				Name = request.form['Name']
+			
+
+
+				Name = request.form['Ingredient']
 				Quantity = request.form['Quantity']
 				Measurement = request.form['Measurement']
-				print ("UserID: ",1,"Name: ",Name,"Quantity: ",Quantity,"Measurement: ",Measurement,"\n")
-
+				print ("Name: ",Name,"Quantity: ",Quantity,"Measurement: ",Measurement,"\n")
+				rows = getpant()
 				
 				cur = con.cursor()
 				#Check if pantry element already exists
@@ -227,19 +253,9 @@ def addpant():
 				else:
 					print("Name select statement: ",match)
 					flag = -1
-					msg = "Pantry item already exists within database"	
-				print(Name)
-
-			except:
-				con.rollback()
-				if flag == -1:
-					msg = "Pantry item already exists"
-				else:
-					msg = "error in insert operations"
-
-			finally:
-				return render_template('result.html',msg = msg)
-				con.close()
+					msg = "Pantry item already exists"	
+				return render_template('AddPantry.html',rows = rows, msg = msg)
+				
 	
 
  
