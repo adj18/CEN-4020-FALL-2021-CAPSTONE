@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>Recipie Builder</title>
+  <title>Recipe Builder</title>
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Bootstrap Icons-->
@@ -31,7 +31,7 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search Recipes By Name" name="Recipe">
                       <div class="input-group-btn">
-                        <button class=" align btn btn-default text-white" type="submit"><i class="bi bi-search"></i></button>
+                        <button class=" align btn btn-primary text-white" type="submit"><i class="bi bi-search"></i></button>
                       </div>
                   </div>
                 </form>
@@ -50,8 +50,8 @@
               <h1><big>{{name}}</big></h1>
               <table table class="table">
             <thead>
-              <th>Step Number</th>
-              <th>Step</th>
+              <th>Step Description</th>
+              <th>Instructions</th>
             </thead>
             <tbody>
             {% for steps in steps %}
@@ -66,16 +66,18 @@
               <table class="table">
                  <thead>
                    <tr>
-                  <th>Ingredient Number</th>
-                  <th>Ingredient</th>
+                  <th>Ingredient Name</th>
+                  <th>Ingredient Amount</th>
+                  <th>Ingredient Measurement</th>
                   </tr>
                 </thead>
           
                 <tbody>
               {% for ingredients in ingredients %}
               <tr>
-              <td>{{ingredients[0]}}</td>
               <td>{{ingredients[1]}}</td>
+              <td>{{ingredients[0]}}</td>
+              <td>{{ingredients[2]}}</td>
              </tr>
               {% endfor %}
             </tbody>
