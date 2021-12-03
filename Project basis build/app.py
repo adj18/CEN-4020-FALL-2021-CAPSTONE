@@ -167,7 +167,6 @@ def addrec_name():
 						id = max(currentids)+1
 					else:
 						id = 1
-					print("able to get id")
 					cur.execute("INSERT INTO Recipe (RecipeID,Name,NumSteps,NumIngredients) VALUES (?,?,?,?)", (id,name, 0, 0))
 					return render_template("addRecipe_ing.html",RID=id,msg="")	
 				else:
@@ -179,8 +178,10 @@ def addrec_name():
 				msg = "An error has occurred please try again"
 				return render_template("addRecipe_name.html",msg = msg)		
 					
-				
-		
+
+@app.route('/addrecipe_name',methods = ['POST','GET'])
+def addrec():				
+		return render_template("addRecipe_name.html",msg = "")
 
 @app.route('/addrec_ing',methods = ['POST','GET'])
 def addrec_ing():
@@ -305,9 +306,6 @@ def addpant():
 
 
 		with sql.connect("recipebase.db") as con:
-			
-
-
 				Name = request.form['Ingredient']
 				Quantity = request.form['Quantity']
 				Measurement = request.form['Measurement']
