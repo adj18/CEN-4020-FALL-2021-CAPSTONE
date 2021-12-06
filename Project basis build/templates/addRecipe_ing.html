@@ -27,38 +27,74 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 ">
-                        <form class="navbar-form" action = "{{url_for("getrec") }}"  method = "POST">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Recipes By Name" name="Recipe">
-                            <div class="input-group-btn">
-                                <button class=" align btn btn-default text-white" type="submit"><i class="bi bi-search"></i></button>
-                            </div>
-                        </div>
-                        </form>
+                    <form class="navbar-form" action = "{{url_for("getrec") }}"  method = "POST">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search Recipes By Name" name="Recipe">
+                          <div class="input-group-btn">
+                            <button class=" align btn btn-primary  text-white" type="submit"><i class="bi bi-search"></i></button>
+                          </div>
+                      </div>
+                    </form>
                 </ul>
-                
             </div>
         </div>
     </nav>
-        <!-- <form action = "{{ url_for("getrec") }}" method = "POST"> -->
-    <section class="page-section bg-primary" id="about">
+        <!-- <form action = "{{ url_for("addrec") }}" method = "POST"> -->
+   <section class="page-section bg-primary">
       <div class="container px-4 px-lg-5">
           <div class="row gx-4 gx-lg-5 justify-content-center">
               <div class="col-lg-8 text-center">
-                  <h2 class="text-white mt-0">Add to your Pantry</h2>
+                  <h2 class="text-white mt-0">Upload your own recipe</h2>
                   <hr class="divider divider-light" />
                   <div class="text-white row gx-4 gx-lg-5 justify-content-center">
-                        Locate a Recipe  
+                        RecipeBuilder - {{msg}}
                 </div>
-                  <input class="text-white mt-0" type = "text" name = "Recipe" /><br>
+                <br><br>
+                  <form action = "{{ url_for("addrec_ing") }}" method = "POST">
+                         <input type="hidden" name="RID" value={{RID}}></input>
+                        <div class="text-white row gx-4 justify-content-center">
+                            <div class="col-lg-4 col-md-4 text-center">
+                                <label>Name:</label> <input type="text" class="form-control" name = "Ingredient" ></input>
+                            </div>
+                            <div class="col-lg-4 col-md-4 text-center">
+                                <label >Quantity:</label> <input type="text" class="form-control" name = "Quantity" ></input>
+                            </div> 
+                            <div class="col-lg-4 col-md-4 text-center">
+                                <label for="Measurement">Measurement Type:</label>
+                                <select class="form-control" id="Measurement" name="Measurement">
+                                    <option value="Whole">Whole</option>
+                                    <option value="Quart">Quart</option>
+                                    <option value="Pint">Pint</option>
+                                    <option value="Cup">Cup</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- <script>function Next(value) {
+                            <input>
+                        }
+                          </script> -->
+                    <div class="text-white row gx-4  justify-content-center">
+                        <div class="input-group-btn">                           
+                                <button class="align  btn btn-primary text-white form-control" name = "Steps" value="0" type="submit">Add another Ingredient</button>
+                               
+                         </div>
+                    </div>
+                    <div class="text-white row gx-4  justify-content-center">
+                        <div class="input-group-btn ">   
+                            <button class="align btn  btn-primary  text-white form-control" name = "Steps" value="1" type="submit">Move on to Steps</button>                       
+                        </div>
+                        <div class="input-group-btn btn-primary:hover" >
+                            <button class="align btn  btn-primary  text-white form-control" name = "Steps" value="2" type="submit">Skip this ingredient, move on to Steps</button>
+                          
+                        </div>
+                    </div>  
+                </form>
+                </div>  
               </div>
           </div>
-      </div>
   </section>
-        <section id = "details">
-               
-  
-        </section>
+      
+
 
        <footer class="bg-light py-5">
         <div class="container px-4 px-lg-5"><div class="small text-center text-muted">Copyright &copy; 2021 - RecipeBuilder</div></div>

@@ -1,0 +1,17 @@
+<!doctype html>
+ <html>
+   <body>
+     <h3><big>All Recipes</big></h3>
+	{% for row in rows  %}
+  <div>
+  <form action = "{{ url_for("selectRecipe") }}" method = "POST">
+	   <tr>
+               <h1><button type="submit" name = "Name" value = "{{row["Name"]}}"  >{{row["Name"]}}</button></h1> 
+
+     </tr>
+    </form>
+    </div>
+	{% endfor  %}
+     <h2><a href = "/">Back to Home</a></h2>
+  </body>
+</html>
