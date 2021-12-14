@@ -40,18 +40,31 @@
         </div>
     </nav>
 
-
+<!-- Idea! Model the recipe list to be page sections that way we can add blocks to include more easy to view data  -->
     <section class="page-section bg-primary" id="about">
       <div class="container px-4 px-lg-5">
           <div class="row gx-4 gx-lg-5 justify-content-center">
               <div class="col-lg-8 text-center">
-                  <h2 class="text-white mt-0">We've got what you need!</h2>
+                  <h2 class="text-white mt-0">{{title}}</h2>
                   <hr class="divider divider-light" />
-                    {% for row in rows  %}
+                    {% for i in range(0,rows|length) %}
                       <form action = "{{ url_for("selectRecipe") }}" method = "POST">
+                        
                           <h1>
-                            <button class="align btn btn-primary" type="submit" name = "Name" value = "{{row["Name"]}}"  >{{row["Name"]}}</button>
+                            <button class="align btn btn-primary" type="submit" name = "Name" value = "{{rows[i].Name}}">{{rows[i].Name}}
+                              {%if cmpDetails %}
+                                {% if cmpDetails[i][0] == cmpDetails[i][1]%}
+                                  <div><div class="small text-center text-muted"><small>You have all ingredients needed! </small></div></div>
+                              
+                                {%else%}
+                                  <div><div class="small text-center text-muted"><small>You have {{cmpDetails[i][0]}} of the </small></div><div class="small text-center text-muted"><small>{{cmpDetails[i][1]}} ingredients needed</small></div></div>
+                                {% endif  %}
+                              {% endif  %}                        
+                            </button>
                           </h1>
+                        {% if i != rows|length - 1 %}
+                          <div><hr class="divider divider-light" /></div>
+                        {% endif  %}
                      </form>
                  {% endfor  %}
               </div>

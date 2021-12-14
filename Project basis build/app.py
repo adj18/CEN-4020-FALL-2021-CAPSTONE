@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from datetime import datetime
 from pathlib import Path
 import sqlite3 as sql
+import string
 app = Flask(__name__)
 
 
@@ -14,6 +15,8 @@ def index():
 def write_recipe():
 	return render_template('addRecipe_name.html',msg="")
 
+
+#OPEN PANTRY ACCESS
 @app.route('/addToPantry')
 def write_Pantry():
 	rows = getpant()
@@ -79,21 +82,9 @@ def getrec():
 				return render_template("result.html",msg = msg)
 			
 	
-# @app.route('/search',methods = ['POST','GET'])
-# def search():
-# 	if request.method == 'POST':
-# 		try:
-# 			flag = 0
-# 			name = request.form['Recipe'] 
-# 			with sql.connect("recipebase.db") as con:
-# 				cur = con.cursor()
-# 				cur.execute("Select Recipe.RecipeID from Recipe WHERE Recipe.Name like %?%",[name])	
 
 
-
-# 	return render_template('')	
-
-
+#OPEN PANTRY ACCESS
 @app.route('/listpant')
 def listpant():
 	con = sql.connect("recipebase.db")
@@ -109,6 +100,7 @@ def listpant():
 
 
 
+#OPEN PANTRY ACCESS
 def getpant():
 	con = sql.connect("recipebase.db")
 	con.row_factory = sql.Row		
@@ -121,6 +113,108 @@ def getpant():
 
 	return rows
 
+#OPEN PANTRY ACCESS
+@app.route('/find')
+def EvalpantryANDRecipes():
+	con = sql.connect("recipebase.db")
+	con.row_factory = sql.Row
+	cur = con.cursor()
+	results = []
+	cur.execute("SELECT Pantry.Name, Pantry.Measurement, Pantry.Quantity FROM Pantry;")
+	#cur.execute("SELECT Name FROM Recipe ")
+	PantryItems = cur.fetchall()
+	rnkdResults = []
+	for item in PantryItems:
+		if item:
+			cur.execute("SELECT Ingredients.RecipeID, Ingredients.Measurement, Ingredients.IngredientValue FROM Ingredients WHERE Ingredients.Ingredient = ?;",[item[0]])
+			matches = cur.fetchall()
+			#found a match now check if we have enough of the item
+			for match in matches:
+				print(f"Pantry Item Name: {item[0]},Measurement type: {item[1]},Quantity: {item[2]}")
+				print(f"Recipe Item Name: {match[0]},Measurement type: {match[1]},Quantity: {match[2]}")
+				if match[1] == item[1] and item[2] >= match[2]:
+					print("perfect match")
+					flag = 0
+					for i in range(len(rnkdResults)):
+						if match[0] == rnkdResults[i][0]:
+							rnkdResults[i][1] += 1
+							flag = 1
+							break
+					if not flag:
+						rnkdResults.append([match[0],1])
+						
+				if match[1] != item[1] and( match[1] or item[1] == "Pint") and (match[1] or item[1] == "Cup"):
+					print("throw exception try conversion; we might have enough for this item")
+					if match[1] == "Pint" and item[1] == "Cup":
+						if match[2] * 2 <= item[2]:
+							print("perfect match")
+							flag = 0
+							for i in range(len(rnkdResults)):
+								if match[0] == rnkdResults[i][0]:
+									rnkdResults[i][1] += 1
+									flag = 1
+									break
+							if not flag:
+								rnkdResults.append([match[0],1])	
+					elif match[1] == "Pint" and item[1] == "Cup":
+						if match[2] <= item[2] * 2 :
+							print("perfect match")
+							flag = 0
+							for i in range(len(rnkdResults)):
+								if match[0] == rnkdResults[i][0]:
+									rnkdResults[i][1] += 1
+									flag = 1
+									break
+							if not flag:
+								rnkdResults.append([match[0],1])	
+
+	for item in rnkdResults:
+		print(f"for recipe ID {item[0]}, we have this number of matching ingredients {item[1]}")
+
+	top_matches = 0
+	top_i = -1
+	ordered_IDs = []
+	while rnkdResults:
+		for i in range (len(rnkdResults)) :
+			if rnkdResults[i][1] > top_matches:
+				top_matches = rnkdResults[i][1]
+				top_i = i
+		if top_i>=0:
+			ordered_IDs.append(rnkdResults[top_i])
+			rnkdResults.remove(rnkdResults[top_i])
+		if len(rnkdResults) ==1:
+			ordered_IDs.append(rnkdResults[0])
+			rnkdResults.remove(rnkdResults[0])
+		else:
+			top_matches = 0
+			top_i = -1
+
+	print(ordered_IDs)
+	ordered_names = []
+	ingComparison = []
+	# tuple breakdown (#matching ing from pantry,# ing in recipe)
+
+	for i in ordered_IDs:
+		cur.execute("SELECT Recipe.Name FROM Recipe WHERE Recipe.RecipeID = ?",[i[0]])	
+		name = cur.fetchall()
+		cur.execute("SELECT Recipe.NumIngredients FROM Recipe WHERE Recipe.RecipeID = ?",[i[0]])	
+		numIng = cur.fetchone()
+		ingComparison.append([i[1],numIng[0]])
+		print(name[0][0])
+		ordered_names.append(name[0])
+
+	return render_template('list.html',rows = ordered_names,title = 'Recipes you can make from what\'s in your pantry',cmpDetails = ingComparison)
+
+
+#OPEN PANTRY ACESS
+#in future maybe need to make a gen purpose function to authenticate cookies, 
+# need to somehow store these on the front end as constantly rendering new templates 
+#will lose stored cookies on user end, but constantly sending back the cookies would not be efficent or secure
+def ingComparison(recipe_names):
+	
+
+
+	return render_template('list.html')
 
 @app.route('/list')
 def list():
