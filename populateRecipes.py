@@ -14,121 +14,125 @@ with sqlite3.connect("recipebase.db") as con, open("/home/kali/Documents/CEN-402
             steps = []
             k=0
             for ingredient in recipe['ingredients']:
-                    # print(ingredient)
-                    count = 0.0
-                    measurement = ""
-                    IName = ""
-                    tmpblock = ""
-                    frac = ""
-                    #get count
-                    tmp = ""
-                    tmp = ingredient.split(' ')
-                    if not tmp[0].isdigit(): 
-                            continue
+                # print(ingredient)
+                measurement = ""
+                IName = ""
+                tmpblock = ""
+                frac = ""
+                count = 0.0
+                #get count
+                tmp = ""
+                tmp = ingredient.split(' ')
+                if not tmp[0].isdigit(): 
+                        continue
 
-                    if tmp[0].find("/") != -1:
-                            frac = tmp[0].split('/')
-                            count+= int(frac[0]) / int(frac[1])
-                            if tmp[1] == "cups" or tmp[1] == "cup":
-                                    measurement = "cup"
-                                    for i in range(2,len(tmp)):
-                                            IName+= tmp[i] 
-                                            IName+=" "
-                            elif tmp[1] == "teaspoons" or tmp[1] == "teaspoon":
-                                    measurement = "teaspoon"
-                                    for i in range(2,len(tmp)):
-                                            IName+= tmp[i] 
-                                            IName+=" "
-                            elif tmp[1] == "tablespoons" or tmp[1] == "tablespoon":    
-                                    measurement = "tablespoon"
-                                    for i in range(2,len(tmp)):
-                                            IName+= tmp[i] 
-                                            IName+=" "
-                            elif tmp[1] == "ounces" or tmp[1] == "ounce":  
-                                    measurement = "ounce"
-                                    for i in range(2,len(tmp)):
-                                            IName+= tmp[i] 
-                                            IName+=" "
-                            elif tmp[1] == "pints" or tmp[1] == "pint": 
-                                    measurement = "pint"
-                                    for i in range(2,len(tmp)):
-                                            IName+= tmp[i]  
-                                            IName+=" "
-                            else:
-                                    measurement = "whole"
-                                    for i in range(1,len(tmp)):
-                                            IName+= tmp[i]  
-                                            IName+=" "
-                            Ingredients.append([id,count,measurement,IName])
-                    else:
-                            count += int(tmp[0])
+                if tmp[0].find("/") != -1:
+                        frac = tmp[0].split('/')
+                        count+= int(frac[0]) / int(frac[1])
+                        if tmp[1] == "cups" or tmp[1] == "cup":
+                                measurement = "cup"
+                                for i in range(2,len(tmp)):
+                                        IName+= tmp[i] 
+                                        IName+=" "
+                        elif tmp[1] == "teaspoons" or tmp[1] == "teaspoon":
+                                measurement = "teaspoon"
+                                for i in range(2,len(tmp)):
+                                        IName+= tmp[i] 
+                                        IName+=" "
+                        elif tmp[1] == "tablespoons" or tmp[1] == "tablespoon":    
+                                measurement = "tablespoon"
+                                for i in range(2,len(tmp)):
+                                        IName+= tmp[i] 
+                                        IName+=" "
+                        elif tmp[1] == "ounces" or tmp[1] == "ounce":  
+                                measurement = "ounce"
+                                for i in range(2,len(tmp)):
+                                        IName+= tmp[i] 
+                                        IName+=" "
+                        elif tmp[1] == "pints" or tmp[1] == "pint": 
+                                measurement = "pint"
+                                for i in range(2,len(tmp)):
+                                        IName+= tmp[i]  
+                                        IName+=" "
+                                else:
+                                        measurement = "whole"
+                                        for i in range(1,len(tmp)):
+                                                IName+= tmp[i]  
+                                                IName+=" "
+                        IName = IName.lower()
+                        IName = IName.capitalize()
+                        Ingredients.append([id,count,measurement,IName])
+                else:
+                        count += int(tmp[0])
                     
-                            if tmp[1].find("/") != -1:
-                                    frac = tmp[1].split('/')
-                                    count+= int(frac[0]) / int(frac[1])
-                                    if tmp[2] == "cups" or tmp[2] == "cup":
-                                            measurement = "cup"
-                                            for i in range(3,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[2] == "teaspoons" or tmp[2] == "teaspoon":
-                                            measurement = "teaspoon"
-                                            for i in range(3,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[2] == "tablespoons" or tmp[2] == "tablespoon":    
-                                            measurement = "tablespoon"
-                                            for i in range(3,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[2] == "ounces" or tmp[2] == "ounce":  
-                                            measurement = "ounce"
-                                            for i in range(3,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[2] == "pints" or tmp[2] == "pint": 
-                                            measurement = "pint"
-                                            for i in range(3,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" " 
-                                    else:
-                                            measurement = "whole"
-                                            for i in range(2,len(tmp)):
-                                                    IName+= tmp[i]  
-                                                    IName+=" "
-                            else:
-                                    #check for measurement if none found use whole
-                                    if tmp[1] == "cups" or tmp[1] == "cup":
-                                            measurement = "cup"
-                                            for i in range(2,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[1] == "teaspoons" or tmp[1] == "teaspoon":
-                                            measurement = "teaspoon"
-                                            for i in range(2,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[1] == "tablespoons" or tmp[1] == "tablespoon":    
-                                            measurement = "tablespoon"
-                                            for i in range(2,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[1] == "ounces" or tmp[1] == "ounce":  
-                                            measurement = "ounce"
-                                            for i in range(2,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" "
-                                    elif tmp[1] == "pints" or tmp[1] == "pint": 
-                                            measurement = "pint"
-                                            for i in range(2,len(tmp)):
-                                                    IName+= tmp[i] 
-                                                    IName+=" " 
-                                    else:
-                                            measurement = "whole"
-                                            for i in range(1,len(tmp)):
-                                                    IName+= tmp[i]  
-                                                    IName+=" "
-                            Ingredients.append([count,measurement,IName])
+                        if tmp[1].find("/") != -1:
+                                frac = tmp[1].split('/')
+                                count+= int(frac[0]) / int(frac[1])
+                                if tmp[2] == "cups" or tmp[2] == "cup":
+                                        measurement = "cup"
+                                        for i in range(3,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[2] == "teaspoons" or tmp[2] == "teaspoon":
+                                        measurement = "teaspoon"
+                                        for i in range(3,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[2] == "tablespoons" or tmp[2] == "tablespoon":    
+                                        measurement = "tablespoon"
+                                        for i in range(3,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[2] == "ounces" or tmp[2] == "ounce":  
+                                        measurement = "ounce"
+                                        for i in range(3,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[2] == "pints" or tmp[2] == "pint": 
+                                        measurement = "pint"
+                                        for i in range(3,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" " 
+                                else:
+                                        measurement = "whole"
+                                        for i in range(2,len(tmp)):
+                                                IName+= tmp[i]  
+                                                IName+=" "
+                        else:
+                                #check for measurement if none found use whole
+                                if tmp[1] == "cups" or tmp[1] == "cup":
+                                        measurement = "cup"
+                                        for i in range(2,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[1] == "teaspoons" or tmp[1] == "teaspoon":
+                                        measurement = "teaspoon"
+                                        for i in range(2,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[1] == "tablespoons" or tmp[1] == "tablespoon":    
+                                        measurement = "tablespoon"
+                                        for i in range(2,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[1] == "ounces" or tmp[1] == "ounce":  
+                                        measurement = "ounce"
+                                        for i in range(2,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" "
+                                elif tmp[1] == "pints" or tmp[1] == "pint": 
+                                        measurement = "pint"
+                                        for i in range(2,len(tmp)):
+                                                IName+= tmp[i] 
+                                                IName+=" " 
+                                else:
+                                        measurement = "whole"
+                                        for i in range(1,len(tmp)):
+                                                IName+= tmp[i]  
+                                                IName+=" "
+                        IName = IName.lower()
+                        IName = IName.capitalize()
+                        Ingredients.append([count,measurement,IName])
             
             numI = len(Ingredients)
             for step in recipe["instructions"]:
@@ -148,7 +152,6 @@ with sqlite3.connect("recipebase.db") as con, open("/home/kali/Documents/CEN-402
             for ingredient in Ingredients:
                 con.execute("INSERT INTO Ingredients (RecipeID, IngredientValue, Measurement, Ingredient) VALUES (?,?,?,?)",(id,ingredient[0],ingredient[1],ingredient[2]))
             for step in steps:
-                print(step[1])
                 con.execute("INSERT INTO Steps (RecipeID, StepValue, Step) VALUES (?,?,?)",(id,step[0],step[1]))
 
 
